@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import '../styles/globals.css'
-import { ThemeProvider } from '@mui/material'
-import { LightTheme } from '@/shared/themes/light'
 
-const inter = Inter({ subsets: ['latin'] })
+import { AppThemeProvider } from '@/shared/contexts/Theme/ThemeContext'
 
 export const metadata: Metadata = {
   title: 'Cadastros',
@@ -18,9 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <ThemeProvider theme={LightTheme}>
-        <body className={inter.className}>{children}</body>
-      </ThemeProvider>
+      <AppThemeProvider>
+        {children}
+      </AppThemeProvider>
     </html>
   )
 }
