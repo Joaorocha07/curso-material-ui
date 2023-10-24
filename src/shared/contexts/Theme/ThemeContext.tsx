@@ -16,7 +16,7 @@ interface IThemeContextData {
 const ThemeContext = createContext({} as IThemeContextData)
 
 export const useAppThemeContext = () => {
-    return useContext(ThemeContext)
+  return useContext(ThemeContext)
 }
 
 export interface IChildrenProp {
@@ -24,27 +24,27 @@ export interface IChildrenProp {
 }
 
 export const AppThemeProvider = ({ children }: IChildrenProp): JSX.Element => {
-    const [themeName, setThemeName] = useState<'light' | 'dark'>('light')
+  const [themeName, setThemeName] = useState<'light' | 'dark'>('light')
     
-    const toggleTheme = useCallback(() => {
-        setThemeName(oldThemeName => oldThemeName === 'light' ? 'dark' : 'light')
-    }, [])
+  const toggleTheme = useCallback(() => {
+    setThemeName(oldThemeName => oldThemeName === 'light' ? 'dark' : 'light')
+  }, [])
 
-    const theme = useMemo(() => {
-        if (themeName === 'light') return LightTheme
+  const theme = useMemo(() => {
+    if (themeName === 'light') return LightTheme
 
-        return DarkTheme
-    }, [themeName])
+    return DarkTheme
+  }, [themeName])
 
-    return (
-        <ThemeContext.Provider value={{ themeName, toggleTheme }}>
-            <ThemeProvider theme={theme}>
-                <body className={inter.className}>
-                    <Box width='100vw' height='100vh' bgcolor={theme.palette.background.default}>
-                        {children}
-                    </Box>
-                </body>
-            </ThemeProvider>
-        </ThemeContext.Provider>
-    )
+  return (
+    <ThemeContext.Provider value={{ themeName, toggleTheme }}>
+      <ThemeProvider theme={theme}>
+        <body className={inter.className}>
+          <Box width='100vw' height='100vh' bgcolor={theme.palette.background.default}>
+            {children}
+          </Box>
+        </body>
+      </ThemeProvider>
+    </ThemeContext.Provider>
+  )
 }

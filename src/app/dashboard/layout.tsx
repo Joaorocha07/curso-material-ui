@@ -11,7 +11,7 @@ export default function DasboardLayout({
 }) {
   return (
     <div>
-        {children}
+      {children}
     </div>
   )
 }
