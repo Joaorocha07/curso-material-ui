@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
 
-import { AppThemeProvider } from '@/shared/contexts/Theme/ThemeContext'
+import { 
+  AppThemeProvider 
+} from '@/shared/contexts/Theme/ThemeContext'
 
 export const metadata: Metadata = {
   title: 'Cadastros',

@@ -1,5 +1,7 @@
 'use client'
-import { useAppThemeContext } from '@/shared/contexts/Theme/ThemeContext'
+import { 
+  useAppThemeContext
+} from '@/shared/contexts/Theme/ThemeContext'
 import { Button } from '@mui/material'
 
 export default function Dashboard() {

@@ -1,3 +1,4 @@
+import MenuLateral from '@/shared/components/MenuLateral'
 import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -11,7 +12,10 @@ export default function DasboardLayout({
 }) {
   return (
     <div>
-      {children}
+      <MenuLateral>
+        {children}  
+      </MenuLateral>
+      
     </div>
   )
 }
