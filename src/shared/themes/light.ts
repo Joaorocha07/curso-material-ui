@@ -1,6 +1,9 @@
 'use client'
 import { createTheme } from '@mui/material'
-import { cyan, yellow } from '@mui/material/colors'
+import { 
+  yellow,
+  cyan
+} from '@mui/material/colors'
 
 export const LightTheme = createTheme({
   palette: {

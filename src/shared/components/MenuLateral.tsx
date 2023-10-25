@@ -6,20 +6,25 @@ import {
   Box,
   Divider,
   Drawer,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
+  useMediaQuery,
   useTheme
 }  from '@mui/material'
+import MenuItens from './MenuItens'
 
 export default function MenuLateral({ 
   children 
 }: IChildrenProp) {
   const theme = useTheme()
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down('sm'))
+
   return (
     <>
-      <Drawer variant='permanent'>
+      <Drawer 
+        open={true}   
+        variant={isMobile ? 'temporary' : 'permanent'
+        }
+      >
         <Box 
           width={theme.spacing(28)} 
           display='flex' 
@@ -43,18 +48,17 @@ export default function MenuLateral({
           </Box>
           <Divider />
           <Box flex={1}>
-            <List component='nav'>
-              <ListItemButton>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dashboard" />
-              </ListItemButton>
-            </List>
+            <MenuItens text='Dashboard'>
+              <HomeIcon />
+            </MenuItens>
           </Box>
         </Box>
       </Drawer>
-      <Box height='100vh' ml={theme.spacing(28)}>
+      <Box 
+        height='100vh' 
+        ml={isMobile ? 0 : theme.spacing(28)
+        }
+      >
         {children}
       </Box>
     </>
