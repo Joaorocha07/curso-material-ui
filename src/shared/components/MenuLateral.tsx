@@ -10,20 +10,25 @@ import {
   useTheme
 }  from '@mui/material'
 import MenuItens from './MenuItens'
+import { 
+  useDrawerContext 
+} from '../contexts/Menu/DrawerContext'
 
 export default function MenuLateral({ 
   children 
 }: IChildrenProp) {
   const theme = useTheme()
+  const { isDrawerOpen, toggleDrawerOpen } 
+    = useDrawerContext()
   const isMobile = useMediaQuery(
     theme.breakpoints.down('sm'))
 
   return (
     <>
       <Drawer 
-        open={true}   
-        variant={isMobile ? 'temporary' : 'permanent'
-        }
+        open={isDrawerOpen}   
+        variant={isMobile ? 'temporary' : 'permanent'}
+        onClose={toggleDrawerOpen}
       >
         <Box 
           width={theme.spacing(28)} 
