@@ -5,8 +5,11 @@ import LayoutBaseDePagina
 export default function Dashboard() {
   return (
     <>
-      <LayoutBaseDePagina titulo='Página inicial'>
-        <h1>Dashboard</h1>
+      <LayoutBaseDePagina 
+        titulo='Dashboard' 
+        barraDeFerramentas={<>Barra de ferramentas</>}
+      >
+        Conteudo da página
       </LayoutBaseDePagina>
     </>
   )

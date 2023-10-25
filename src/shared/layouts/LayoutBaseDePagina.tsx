@@ -14,16 +14,20 @@ import {
 interface ILayoutBaseDePaginaProps {
     children: ReactNode
     titulo: string
+    barraDeFerramentas?: ReactNode
 }
 
 export default function LayoutBaseDePagina({
   children,
-  titulo 
+  titulo,
+  barraDeFerramentas
 }: ILayoutBaseDePaginaProps) {
   const { toggleDrawerOpen } = useDrawerContext()
   const theme = useTheme()
   const isMobile = useMediaQuery(
     theme.breakpoints.down('sm'))
+  const mdDonw = useMediaQuery(
+    theme.breakpoints.down('md'))
 
 
   return (
@@ -37,22 +41,31 @@ export default function LayoutBaseDePagina({
         padding={1} 
         display='flex' 
         alignItems='center'
+        height={theme.spacing(
+          isMobile ? 6 : mdDonw ? 8 : 12
+        )}
         gap={1}
-        height={theme.spacing(12)}
       >
         {isMobile && (
           <IconButton onClick={toggleDrawerOpen}>
             <MenuIcon />
           </IconButton>
         )}
-        <Typography variant='h5'>
+        <Typography 
+          variant={isMobile ? 'h5' : mdDonw ? 'h4' : 'h3'} 
+          whiteSpace='nowrap' 
+          overflow='hidden'
+          textOverflow='ellipsis'
+        >
           {titulo}
         </Typography>
       </Box>
-      <Box>
-        Barra de ferramentas
-      </Box>
-      <Box>
+      {barraDeFerramentas && (
+        <Box>
+          {barraDeFerramentas}
+        </Box>
+      )}
+      <Box flex={1} overflow='auto'>
         {children}
       </Box>
     </Box>
