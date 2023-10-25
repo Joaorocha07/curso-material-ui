@@ -22,10 +22,10 @@ export const useDrawerContext = () => {
 export const DrawerProvider = ({
   children 
 }: IChildrenProp): JSX.Element => {
-  const [isDrawerOpen, setIsDrowerOpen] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     
   const toggleDrawerOpen = useCallback(() => {
-    setIsDrowerOpen(oldDrowerOpen => !oldDrowerOpen)
+    setIsDrawerOpen(oldDrawerOpen => !oldDrawerOpen)
   }, [])
 
   return (

@@ -1,41 +1,13 @@
 'use client'
-import { 
-  useDrawerContext 
-} from '@/shared/contexts/Menu/DrawerContext'
-import { 
-  useAppThemeContext
-} from '@/shared/contexts/Theme/ThemeContext'
-import { Box, Button } from '@mui/material'
+import LayoutBaseDePagina 
+  from '@/shared/layouts/LayoutBaseDePagina'
 
 export default function Dashboard() {
-  const { toggleTheme } = useAppThemeContext()
-  const { toggleDrawerOpen } = useDrawerContext()
-
   return (
     <>
-      <Box sx={{ ml: '20px' }}>
+      <LayoutBaseDePagina titulo='Página inicial'>
         <h1>Dashboard</h1>
-      </Box>
-      <Button
-        sx={{
-          ml: '20px'
-        }}
-        variant='contained'
-        color='primary'
-        onClick={toggleTheme}
-      >
-        Altere o fundo da página
-      </Button>
-      <Button
-        sx={{
-          ml: '20px'
-        }}
-        variant='contained'
-        color='primary'
-        onClick={toggleDrawerOpen}
-      >
-        Abra o menu
-      </Button>
+      </LayoutBaseDePagina>
     </>
   )
 }

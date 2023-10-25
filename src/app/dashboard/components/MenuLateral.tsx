@@ -1,6 +1,5 @@
 'use client'
 import { IChildrenProp } from '@/types/global'
-import HomeIcon from '@mui/icons-material/Home'
 import { 
   Avatar,
   Box,
@@ -9,17 +8,19 @@ import {
   useMediaQuery,
   useTheme
 }  from '@mui/material'
-import MenuItens from './MenuItens'
 import { 
   useDrawerContext 
-} from '../contexts/Menu/DrawerContext'
+} from '../../../shared/contexts/Menu/DrawerContext'
+import SelectionMenus from './SelectionMenus'
 
 export default function MenuLateral({ 
   children 
 }: IChildrenProp) {
   const theme = useTheme()
-  const { isDrawerOpen, toggleDrawerOpen } 
-    = useDrawerContext()
+  const { 
+    isDrawerOpen, 
+    toggleDrawerOpen
+  } = useDrawerContext()
   const isMobile = useMediaQuery(
     theme.breakpoints.down('sm'))
 
@@ -52,17 +53,12 @@ export default function MenuLateral({
             />
           </Box>
           <Divider />
-          <Box flex={1}>
-            <MenuItens text='Dashboard'>
-              <HomeIcon />
-            </MenuItens>
-          </Box>
+          <SelectionMenus />
         </Box>
       </Drawer>
       <Box 
         height='100vh' 
-        ml={isMobile ? 0 : theme.spacing(28)
-        }
+        ml={isMobile ? 0 : theme.spacing(28)}
       >
         {children}
       </Box>

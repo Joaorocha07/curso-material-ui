@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import '../styles/globals.css'
-
-import { 
-  AppThemeProvider 
+import { AppThemeProvider 
 } from '@/shared/contexts/Theme/ThemeContext'
 
 export const metadata: Metadata = {
@@ -15,6 +13,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  
+
+
   return (
     <html lang="pt-br">
       <AppThemeProvider>
