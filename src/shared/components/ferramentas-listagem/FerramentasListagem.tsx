@@ -9,7 +9,7 @@ import {
   useTheme 
 } from '@mui/material'
 
-interface IBarraDeFerramentasProps {
+interface IFerramentasListagemProps {
     textoDaBusca?: string
     mostrarInputBusca?: boolean
     aoMudarTextoDaBusca?: (novoTexto : string) => void
@@ -18,14 +18,14 @@ interface IBarraDeFerramentasProps {
     aoClicarEmNovo?: () => void
 }
 
-export default function BarraDeFerramentas({
+export default function FerramentasListagem({
   textoDaBusca = '',
   mostrarInputBusca = false,
   aoMudarTextoDaBusca,
   textoBotaoNovo = 'Novo',
   mostrarBotaoNovo = true,
   aoClicarEmNovo
-} : IBarraDeFerramentasProps) {
+} : IFerramentasListagemProps) {
   const theme = useTheme()
   return (
     <Box 
@@ -38,7 +38,6 @@ export default function BarraDeFerramentas({
       height={theme.spacing(7)}
       component={Paper}    
     >
-
       {mostrarInputBusca && (
         <TextField 
           size='small'

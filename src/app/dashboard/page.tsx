@@ -1,6 +1,6 @@
 'use client'
 // eslint-disable-next-line max-len
-import BarraDeFerramentas from '@/shared/components/barra-de-ferramentas/BarraDeFerramentas'
+import FerramentasDetalhes from '@/shared/components/ferramentas-detalhes/FerramentasDetalhes'
 import LayoutBaseDePagina 
   from '@/shared/layouts/LayoutBaseDePagina'
 
@@ -10,8 +10,7 @@ export default function Dashboard() {
       <LayoutBaseDePagina 
         titulo='Dashboard' 
         barraDeFerramentas={
-          <BarraDeFerramentas 
-            mostrarInputBusca textoBotaoNovo='NOVA' />
+          <FerramentasDetalhes mostrarBotaoSalvarEFechar />
         }
       >
         Conteudo da página
