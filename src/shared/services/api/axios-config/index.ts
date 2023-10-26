@@ -5,7 +5,7 @@ import {
 import { 
   errorInterceptor 
 } from './interceptors/ErrorInterceptor'
-import { Enviroment } from '@/environment'
+import { Enviroment } from '@/shared/environment'
 
 const Api = axios.create({
   baseURL: Enviroment.URL_BASE

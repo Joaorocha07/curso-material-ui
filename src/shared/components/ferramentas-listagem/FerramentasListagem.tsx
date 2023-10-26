@@ -8,7 +8,7 @@ import {
   TextField,
   useTheme 
 } from '@mui/material'
-import { Enviroment } from '@/environment'
+import { Enviroment } from '@/shared/environment'
 
 interface IFerramentasListagemProps {
     textoDaBusca?: string
