@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "mock": "json-server -w -p 3333 ./mock/database.json",
     "lint": "next lint"
   },
   "dependencies": {
@@ -26,6 +27,7 @@
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
     "eslint-plugin-react": "^7.33.2",
+    "json-server": "^0.17.4",
     "typescript": "^5"
   }
 }
