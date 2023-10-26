@@ -7,6 +7,7 @@ import {
   Button, 
   Divider, 
   Paper, 
+  Skeleton, 
   useTheme 
 } from '@mui/material'
 
@@ -18,6 +19,12 @@ interface IFerramentasDetalhesProps {
     mostrarBotaoApagar?: boolean
     mostrarBotaoSalvar?: boolean
     mostrarBotaoSalvarEFechar?: boolean
+
+    mostrarBotaoNovoCarregando?: boolean
+    mostrarBotaoVoltarCarregando?: boolean
+    mostrarBotaoApagarCarregando?: boolean
+    mostrarBotaoSalvarCarregando?: boolean
+    mostrarBotaoSalvarEFecharCarregando?: boolean
 
     aoClicarEmNovo?: () => void
     aoClicarEmVoltar?: () => void
@@ -34,6 +41,12 @@ export default function FerramentasListagem({
   mostrarBotaoApagar        = true,
   mostrarBotaoSalvar        = true,
   mostrarBotaoSalvarEFechar = false,
+
+  mostrarBotaoNovoCarregando          = false,
+  mostrarBotaoVoltarCarregando        = false,
+  mostrarBotaoApagarCarregando        = false,
+  mostrarBotaoSalvarCarregando        = false,
+  mostrarBotaoSalvarEFecharCarregando = false,
 
   aoClicarEmNovo,
   aoClicarEmVoltar,
@@ -54,7 +67,8 @@ export default function FerramentasListagem({
       height={theme.spacing(7)}
       component={Paper}
     >
-      {mostrarBotaoSalvar && (
+      {(mostrarBotaoSalvar && 
+        !mostrarBotaoSalvarCarregando) && (
         <Button 
           variant='contained' 
           color='primary' 
@@ -65,7 +79,12 @@ export default function FerramentasListagem({
         </Button>
       )}
 
-      {mostrarBotaoSalvarEFechar && (
+      {mostrarBotaoSalvarCarregando &&(
+        <Skeleton width={108} height={62} />
+      )}
+
+      {(mostrarBotaoSalvarEFechar && 
+        !mostrarBotaoSalvarEFecharCarregando) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -76,7 +95,12 @@ export default function FerramentasListagem({
         </Button>
       )}
 
-      {mostrarBotaoApagar && (
+      {mostrarBotaoSalvarEFecharCarregando &&(
+        <Skeleton width={186} height={62} />
+      )}
+
+      {(mostrarBotaoApagar && 
+        !mostrarBotaoApagarCarregando) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -87,7 +111,12 @@ export default function FerramentasListagem({
         </Button>    
       )}
 
-      {mostrarBotaoNovo && (
+      {mostrarBotaoApagarCarregando &&( 
+        <Skeleton width={115} height={62} />
+      )}
+
+      {(mostrarBotaoNovo && 
+        !mostrarBotaoNovoCarregando) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -98,9 +127,14 @@ export default function FerramentasListagem({
         </Button>
       )}
 
+      {mostrarBotaoNovoCarregando &&(
+        <Skeleton width={98} height={62} />
+      )}
+
       <Divider variant='middle' orientation='vertical' />
 
-      {mostrarBotaoVoltar && (
+      {(mostrarBotaoVoltar && 
+        !mostrarBotaoVoltarCarregando) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -110,6 +144,11 @@ export default function FerramentasListagem({
           Voltar
         </Button>
       )}
+
+      {mostrarBotaoVoltarCarregando &&(
+        <Skeleton width={109} height={62} />
+      )}
+
     </Box>
   )
 }
