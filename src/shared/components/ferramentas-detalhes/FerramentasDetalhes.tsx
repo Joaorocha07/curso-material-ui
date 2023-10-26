@@ -8,6 +8,8 @@ import {
   Divider, 
   Paper, 
   Skeleton, 
+  Typography, 
+  useMediaQuery, 
   useTheme 
 } from '@mui/material'
 
@@ -56,6 +58,11 @@ export default function FerramentasListagem({
 } : IFerramentasDetalhesProps) {
   const theme = useTheme()
 
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down('sm'))
+  const mdDonw = useMediaQuery(
+    theme.breakpoints.down('md'))
+
   return (
     <Box
       gap={1}
@@ -75,7 +82,14 @@ export default function FerramentasListagem({
           startIcon={<SaveIcon />}
           onClick={aoClicarEmSalvar}
         >
-          Salvar
+          <Typography 
+            variant='button' 
+            whiteSpace='nowrap' 
+            textOverflow='ellipsis' 
+            overflow='hidden'
+          >
+            Salvar
+          </Typography>
         </Button>
       )}
 
@@ -84,18 +98,27 @@ export default function FerramentasListagem({
       )}
 
       {(mostrarBotaoSalvarEFechar && 
-        !mostrarBotaoSalvarEFecharCarregando) && (
+        !mostrarBotaoSalvarEFecharCarregando &&
+          !isMobile && mdDonw) && (
         <Button 
           variant='outlined' 
           color='primary' 
           startIcon={<SaveIcon />}
           onClick={aoClicarEmSalvarEFechar}
         >
-          Salvar e voltar
+          <Typography 
+            variant='button' 
+            whiteSpace='nowrap' 
+            textOverflow='ellipsis' 
+            overflow='hidden'
+          >
+            Salvar e voltar
+          </Typography>
         </Button>
       )}
 
-      {mostrarBotaoSalvarEFecharCarregando &&(
+      {(mostrarBotaoSalvarEFecharCarregando &&
+       !isMobile && mdDonw) &&(
         <Skeleton width={186} height={62} />
       )}
 
@@ -107,7 +130,14 @@ export default function FerramentasListagem({
           startIcon={<DeleteIcon />}
           onClick={aoClicarEmApagar}
         >
-          Apagar
+          <Typography 
+            variant='button' 
+            whiteSpace='nowrap' 
+            textOverflow='ellipsis' 
+            overflow='hidden'
+          >
+            Apagar
+          </Typography>
         </Button>    
       )}
 
@@ -116,7 +146,7 @@ export default function FerramentasListagem({
       )}
 
       {(mostrarBotaoNovo && 
-        !mostrarBotaoNovoCarregando) && (
+        !mostrarBotaoNovoCarregando && !isMobile) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -127,11 +157,18 @@ export default function FerramentasListagem({
         </Button>
       )}
 
-      {mostrarBotaoNovoCarregando &&(
+      {(mostrarBotaoNovoCarregando && !isMobile) && (
         <Skeleton width={98} height={62} />
       )}
 
-      <Divider variant='middle' orientation='vertical' />
+      {( mostrarBotaoVoltar &&
+          (
+            mostrarBotaoNovo || mostrarBotaoApagar || 
+            mostrarBotaoSalvar || mostrarBotaoSalvarEFechar
+          )
+      ) && (
+        <Divider variant='middle' orientation='vertical' />
+      )}
 
       {(mostrarBotaoVoltar && 
         !mostrarBotaoVoltarCarregando) && (
@@ -141,7 +178,14 @@ export default function FerramentasListagem({
           startIcon={<ArrowBackIcon />}
           onClick={aoClicarEmVoltar}
         >
-          Voltar
+          <Typography 
+            variant='button' 
+            whiteSpace='nowrap' 
+            textOverflow='ellipsis' 
+            overflow='hidden'
+          >
+            Voltar
+          </Typography>
         </Button>
       )}
 
