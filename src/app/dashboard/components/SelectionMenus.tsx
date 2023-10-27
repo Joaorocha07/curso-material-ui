@@ -9,6 +9,8 @@ import {
 
 // icons
 import HomeIcon from '@mui/icons-material/Home'
+import LocationCityIcon 
+  from '@mui/icons-material/LocationCity'
 import NightlightRoundIcon 
   from '@mui/icons-material/NightlightRound'
 
@@ -33,6 +35,15 @@ export default function SelectionMenus() {
           }
         >
           <HomeIcon />
+        </MenuItens>
+        <MenuItens 
+          text='Cidades' 
+          link='/dashboard/cidades' 
+          onClick={
+            isMobile ? toggleDrawerOpen : undefined
+          }
+        >
+          <LocationCityIcon />
         </MenuItens>
       </Box>
       <Box>
