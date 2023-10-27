@@ -20,19 +20,19 @@ interface IFerramentasDetalhesProps {
     mostrarBotaoVoltar?: boolean
     mostrarBotaoApagar?: boolean
     mostrarBotaoSalvar?: boolean
-    mostrarBotaoSalvarEFechar?: boolean
+    mostrarBotaoSalvarEVoltar?: boolean
 
     mostrarBotaoNovoCarregando?: boolean
     mostrarBotaoVoltarCarregando?: boolean
     mostrarBotaoApagarCarregando?: boolean
     mostrarBotaoSalvarCarregando?: boolean
-    mostrarBotaoSalvarEFecharCarregando?: boolean
+    mostrarBotaoSalvarEVoltarCarregando?: boolean
 
     aoClicarEmNovo?: () => void
     aoClicarEmVoltar?: () => void
     aoClicarEmApagar?: () => void
     aoClicarEmSalvar?: () => void
-    aoClicarEmSalvarEFechar?: () => void
+    aoClicarEmSalvarEVoltar?: () => void
 }
 
 export default function FerramentasListagem({
@@ -42,19 +42,19 @@ export default function FerramentasListagem({
   mostrarBotaoVoltar        = true,
   mostrarBotaoApagar        = true,
   mostrarBotaoSalvar        = true,
-  mostrarBotaoSalvarEFechar = false,
+  mostrarBotaoSalvarEVoltar = false,
 
   mostrarBotaoNovoCarregando          = false,
   mostrarBotaoVoltarCarregando        = false,
   mostrarBotaoApagarCarregando        = false,
   mostrarBotaoSalvarCarregando        = false,
-  mostrarBotaoSalvarEFecharCarregando = false,
+  mostrarBotaoSalvarEVoltarCarregando = false,
 
   aoClicarEmNovo,
   aoClicarEmVoltar,
   aoClicarEmApagar,
   aoClicarEmSalvar,
-  aoClicarEmSalvarEFechar
+  aoClicarEmSalvarEVoltar
 } : IFerramentasDetalhesProps) {
   const theme = useTheme()
 
@@ -97,14 +97,14 @@ export default function FerramentasListagem({
         <Skeleton width={108} height={62} />
       )}
 
-      {(mostrarBotaoSalvarEFechar && 
-        !mostrarBotaoSalvarEFecharCarregando &&
+      {(mostrarBotaoSalvarEVoltar && 
+        !mostrarBotaoSalvarEVoltarCarregando &&
           !isMobile && mdDonw) && (
         <Button 
           variant='outlined' 
           color='primary' 
           startIcon={<SaveIcon />}
-          onClick={aoClicarEmSalvarEFechar}
+          onClick={aoClicarEmSalvarEVoltar}
         >
           <Typography 
             variant='button' 
@@ -117,7 +117,7 @@ export default function FerramentasListagem({
         </Button>
       )}
 
-      {(mostrarBotaoSalvarEFecharCarregando &&
+      {(mostrarBotaoSalvarEVoltarCarregando &&
        !isMobile && mdDonw) &&(
         <Skeleton width={186} height={62} />
       )}
@@ -164,7 +164,7 @@ export default function FerramentasListagem({
       {( mostrarBotaoVoltar &&
           (
             mostrarBotaoNovo || mostrarBotaoApagar || 
-            mostrarBotaoSalvar || mostrarBotaoSalvarEFechar
+            mostrarBotaoSalvar || mostrarBotaoSalvarEVoltar
           )
       ) && (
         <Divider variant='middle' orientation='vertical' />

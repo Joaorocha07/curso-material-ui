@@ -10,7 +10,7 @@ export default function Dashboard() {
       <LayoutBaseDePagina 
         titulo='Dashboard' 
         barraDeFerramentas={
-          <FerramentasDetalhes mostrarBotaoSalvarEFechar />
+          <FerramentasDetalhes mostrarBotaoSalvarEVoltar />
         }
       >
         Conteudo da página

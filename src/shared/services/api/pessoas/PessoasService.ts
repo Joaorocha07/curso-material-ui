@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-len */
 import { Enviroment } from '@/shared/environment'
 import { Api } from '../axios-config'
@@ -41,13 +42,53 @@ const getAll = async (page = 1, filter = ''): Promise<IPessoasComTotalCount | Er
   }
 }
 
-const getById = async (): Promise<void> => {}
+const getById = async (id: number): Promise<IDetalhePessoa | Error> => {
+  try {
+    const { data } = await Api.get(`/pessoas/${id}`)
 
-const create = async (): Promise<void> => {}
+    if (data) {
+      return data
+    }
 
-const updateById = async (): Promise<void> => {}
+    return new Error('Erro ao consultar o registro!')
+  } catch (error) {
+    console.error(error)
+    return new Error((error as {message : string}).message || 'Erro ao consultar o registro!')
+  }   
+}
 
-const deleteById = async (): Promise<void> => {}
+const create = async (dados : Omit<IDetalhePessoa, 'id'>): Promise<number | Error> => {
+  try {
+    const { data } = await Api.post<IDetalhePessoa>('/pessoas', dados)
+
+    if (data) {
+      return data.id
+    }
+
+    return new Error('Erro ao criar o registro!')
+  } catch (error) {
+    console.error(error)
+    return new Error((error as {message : string}).message || 'Erro ao criar o registro!')
+  }  
+}
+
+const updateById = async (id : number, dados : IDetalhePessoa): Promise<void | Error> => {
+  try {
+    const { data } = await Api.put(`/pessoas/${id}`, dados)
+  } catch (error) {
+    console.error(error)
+    return new Error((error as {message : string}).message || 'Erro ao editar o registro!')
+  }
+}
+
+const deleteById = async (id : number): Promise<void | Error> => {
+  try {
+    const { data } = await Api.delete(`/pessoas/${id}`)
+  } catch (error) {
+    console.error(error)
+    return new Error((error as {message : string}).message || 'Erro ao deletar o registro!')
+  }
+}
 
 export const PessoasService = {
   getAll,
