@@ -2,11 +2,13 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { 
+  LinearProgress,
   Paper,
   Table, 
   TableBody, 
   TableCell, 
   TableContainer, 
+  TableFooter, 
   TableHead, 
   TableRow 
 } from '@mui/material'
@@ -17,6 +19,7 @@ import LayoutBaseDePagina from '@/shared/layouts/LayoutBaseDePagina'
 import { PessoasService } from '@/shared/services/api/pessoas/PessoasService'
 
 import { IListagemPessoa } from '@/types/pessoas'
+import { Enviroment } from '@/shared/environment'
 
 export default function ListagemDePessoas() {
   const [busca, setBusca] = useState<string>('')
@@ -86,16 +89,30 @@ export default function ListagemDePessoas() {
               <TableCell>Email</TableCell>
             </TableRow>
           </TableHead>
-          
-          {rows.map(row => (
-            <TableBody key={row.id}>
-              <TableRow>
+
+          <TableBody >
+            {rows.map(row => (
+              <TableRow key={row.id}>
                 <TableCell>Ações</TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>
-            </TableBody>
-          ))}
+            ))}
+          </TableBody>
+
+          {totalCount === 0 && !loading && (
+            <caption>{Enviroment.LISTAGEM_VAZIA}</caption>
+          )}
+
+          <TableFooter>
+            {loading && (
+              <TableRow>
+                <TableCell colSpan={3}>
+                  <LinearProgress variant='indeterminate' />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableFooter>
         </Table>
       </TableContainer>
     </LayoutBaseDePagina>
