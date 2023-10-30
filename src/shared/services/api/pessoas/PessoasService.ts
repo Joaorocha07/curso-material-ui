@@ -2,25 +2,7 @@
 /* eslint-disable max-len */
 import { Enviroment } from '@/shared/environment'
 import { Api } from '../axios-config'
-
-interface IListagemPessoa {
-  id: number
-  email: string
-  cidadeId: number
-  nomeCompleto: string
-}
-
-interface IDetalhePessoa {
-  id: number
-  email: string
-  cidadeId: number
-  nomeCompleto: string
-}
-
-type IPessoasComTotalCount = {
-  data: IListagemPessoa[]
-  totalCount: number
-}
+import { IDetalhePessoa, IPessoasComTotalCount } from '@/types/pessoas'
 
 const getAll = async (page = 1, filter = ''): Promise<IPessoasComTotalCount | Error> => {
   try {
