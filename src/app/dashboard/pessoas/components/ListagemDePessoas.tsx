@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 'use client'
 import FerramentasListagem from '@/shared/components/ferramentas-listagem/FerramentasListagem'
+import useDebounce from '@/shared/hooks/UseDebounce'
 import LayoutBaseDePagina from 
   '@/shared/layouts/LayoutBaseDePagina'
 import { PessoasService } from '@/shared/services/api/pessoas/PessoasService'
@@ -8,6 +9,7 @@ import { useEffect, useState } from 'react'
 
 export default function ListagemDePessoas() {
   const [busca, setBusca] = useState<string>('')
+  const { debounce } = useDebounce(2000, false)
 
   const handleInputChange = (texto: string) => {
     setBusca(texto)
@@ -24,15 +26,17 @@ export default function ListagemDePessoas() {
   }
 
   useEffect(() => {
-    void limpaBuscar()
-    PessoasService.getAll(1, busca)
-      .then((result) => {
-        if(result instanceof Error) {
-          alert(result.message)
-          return
-        }
-        console.log(result)
-      })
+    debounce(() => {
+      void limpaBuscar()
+      PessoasService.getAll(1, busca)
+        .then((result) => {
+          if(result instanceof Error) {
+            alert(result.message)
+            return
+          }
+          console.log(result)
+        })
+    })
   }, [busca])
 
   return (
