@@ -11,7 +11,6 @@ import {
   TableCell, 
   TableContainer, 
   TableFooter, 
-  TableHead, 
   TableRow 
 } from '@mui/material'
 
@@ -26,6 +25,7 @@ import { Enviroment } from '@/shared/environment'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useRouter } from 'next/navigation'
+import HeadTableComponents from './HeadTableComponents'
 
 export default function ListagemDePessoas() {
   const [busca, setBusca] = useState<string>('')
@@ -103,6 +103,7 @@ export default function ListagemDePessoas() {
           textoBotaoNovo='Nova' 
           mostrarInputBusca  
           textoDaBusca={busca}
+          aoClicarEmNovo={() => router.push('/dashboard/pessoas/detalhe/nova')}
           aoMudarTextoDaBusca={handleInputChange}
         />
       }
@@ -113,13 +114,7 @@ export default function ListagemDePessoas() {
         sx={{ m: 1, width: 'auto' }}
       >
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Ações</TableCell>
-              <TableCell>Nome completo</TableCell>
-              <TableCell>Email</TableCell>
-            </TableRow>
-          </TableHead>
+          <HeadTableComponents />
 
           <TableBody >
             {rows.map(row => (
@@ -128,7 +123,7 @@ export default function ListagemDePessoas() {
                   <IconButton size='small' onClick={() => handleDelete(row.id)}>
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton size='small' onClick={() => router.push(`/pessoas/detalhe/${row.id}`) }>
+                  <IconButton size='small' onClick={() => router.push(`/dashboard/pessoas/detalhe/${row.id}`) }>
                     <EditIcon />
                   </IconButton>
                 </TableCell>

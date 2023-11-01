@@ -42,7 +42,7 @@ export default function FerramentasListagem({
   mostrarBotaoVoltar        = true,
   mostrarBotaoApagar        = true,
   mostrarBotaoSalvar        = true,
-  mostrarBotaoSalvarEVoltar = false,
+  mostrarBotaoSalvarEVoltar = true,
 
   mostrarBotaoNovoCarregando          = false,
   mostrarBotaoVoltarCarregando        = false,
@@ -91,10 +91,6 @@ export default function FerramentasListagem({
             Salvar
           </Typography>
         </Button>
-      )}
-
-      {mostrarBotaoSalvarCarregando &&(
-        <Skeleton width={108} height={62} />
       )}
 
       {(mostrarBotaoSalvarEVoltar && 
