@@ -1,14 +1,22 @@
 /* eslint-disable max-len */
 'use client'
+import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { FormHandles } from '@unform/core'
+import { Form } from '@unform/web'
+
+import { PessoasService } from '@/shared/services/api/pessoas/PessoasService'
 import FerramentasDetalhes 
   from '@/shared/components/ferramentas-detalhes/FerramentasDetalhes'
-import VTextField from '@/shared/forms/VTextField'
 import LayoutBaseDePagina 
   from '@/shared/layouts/LayoutBaseDePagina'
-import { PessoasService } from '@/shared/services/api/pessoas/PessoasService'
-import { Form } from '@unform/web'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import VTextField from '@/shared/forms/VTextField'
+
+interface IFormData {
+  email: string
+  cidadeId: number
+  nomeCompleto: string
+}
 
 export default function DetalhesDePessoas({
   id,
@@ -16,6 +24,8 @@ export default function DetalhesDePessoas({
     id: string
  }) {
   const router = useRouter()
+
+  const formRef = useRef<FormHandles>(null)
 
   const [loaging, setLoading] = useState(false)
   const [nome, setNome] = useState('')
@@ -32,13 +42,39 @@ export default function DetalhesDePessoas({
           } else {
             console.log(result)
             setNome(result.nomeCompleto)
+
+            formRef.current?.setData(result)
           }
         })
     }
   }, [id])
 
-  const handleSave = () => {
-    console.log('save')
+  const handleSave = (dados : IFormData) => {
+    console.log(dados)
+    setLoading(true)
+    if (id === 'nova') {
+      PessoasService
+        .create(dados)
+        .then((result) => {
+          setLoading(false)
+          
+          if (result instanceof Error) {
+            alert(result.message)
+          } else {
+            router.push(`/dashboard/pessoas/detalhe/${result}`)
+          }
+        })
+    } else {
+      PessoasService
+        .updateById(Number(id), {id: Number(id), ...dados})
+        .then((result) => {
+          setLoading(false)
+          
+          if (result instanceof Error) {
+            alert(result.message)
+          }
+        })
+    }
   }
   
   const handleDelete = (id: number) => {
@@ -62,22 +98,33 @@ export default function DetalhesDePessoas({
         <FerramentasDetalhes 
           textoBotaoNovo='Nova'
           mostrarBotaoSalvar
+          mostrarBotaoSalvarEVoltar
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
 
-          aoClicarEmSalvar={handleSave}
+          aoClicarEmSalvar={() => formRef.current?.submitForm()}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmNovo={() => router.push('/dashboard/pessoas/detalhe/nova')}
           aoClicarEmVoltar={() => router.push('/dashboard/pessoas')}
+          aoClicarEmSalvarEVoltar={() => formRef.current?.submitForm()}
         />
       }
     >
-      <Form onSubmit={(dados) => console.log(dados)}>
+      <Form ref={formRef} onSubmit={handleSave}>
         <VTextField 
-          name='nomeCompleto'  
+          name='nomeCompleto'
+          placeholder='Nome Completo'
         />
 
-        <button type='submit'>Submit</button>
+        <VTextField 
+          name='email'  
+          placeholder='E-mail'  
+        />
+
+        <VTextField 
+          name='cidadeId'  
+          placeholder='Cidade Id'
+        />
       </Form>
     </LayoutBaseDePagina>
   )
