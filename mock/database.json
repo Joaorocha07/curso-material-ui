@@ -2,21 +2,15 @@
   "pessoas": [
     {
       "id": 4,
+      "nomeCompleto": "Kesya Grabiella Oliveira teste",
       "email": "kesya@gmail.com",
-      "cidadeId": 4,
-      "nomeCompleto": "Kesya Grabiella Oliveira"
-    },
-    {
-      "id": 6,
-      "email": "ana@gmail.com",
-      "cidadeId": 6,
-      "nomeCompleto": "Ana Maria Sampaio"
+      "cidadeId": 4
     },
     {
       "id": 7,
+      "nomeCompleto": "Maria Silva",
       "email": "maria@gmail.com",
-      "cidadeId": 7,
-      "nomeCompleto": "Maria da Silva"
+      "cidadeId": 7
     },
     {
       "id": 8,
@@ -50,9 +44,9 @@
     },
     {
       "id": 14,
+      "nomeCompleto": "Cláudia Pereira",
       "email": "claudia@gmail.com",
-      "cidadeId": 14,
-      "nomeCompleto": "Cláudia Pereira"
+      "cidadeId": 14
     },
     {
       "id": 15,
@@ -68,7 +62,7 @@
     },
     {
       "id": 17,
-      "nomeCompleto": "Segismundo Corneiro Editado",
+      "nomeCompleto": "Segismundo Corneiro",
       "email": "segiecorno@gmail",
       "cidadeId": "1"
     }
