@@ -60,8 +60,6 @@ export default function FerramentasListagem({
 
   const isMobile = useMediaQuery(
     theme.breakpoints.down('sm'))
-  const mdDonw = useMediaQuery(
-    theme.breakpoints.down('md'))
 
   return (
     <Box

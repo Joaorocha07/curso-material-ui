@@ -4,6 +4,8 @@ import {
   DrawerProvider
 } from '@/shared/contexts/Menu/DrawerContext'
 
+import '../../shared/forms/TraducoesYup'
+
 export default function DasboardLayout({
   children,
 }: {
