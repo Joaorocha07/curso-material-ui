@@ -6,7 +6,7 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material'
 import { Form } from '@unform/web'
 import * as yup from 'yup'
 
-import { PessoasService } from '@/shared/services/api/pessoas/PessoasService'
+import { CidadesService } from '@/shared/services/api/cidades/CidadesService'
 import FerramentasDetalhes 
   from '@/shared/components/ferramentas-detalhes/FerramentasDetalhes'
 import LayoutBaseDePagina 
@@ -14,21 +14,16 @@ import LayoutBaseDePagina
 import VTextField from '@/shared/forms/VTextField'
 import { useVForm } from '@/shared/forms/useVForm'
 import { IVFormErrors } from '@/shared/forms/IvFormErrors'
-import AutoCompleteCidades from '../../components/AutoCompleteCidades'
 
 interface IFormData {
-  email: string
-  cidadeId: number
-  nomeCompleto: string
+  nome: string
 }
 
 const formValidationSchema = yup.object().shape({
-  nomeCompleto: yup.string().required().min(3),
-  email: yup.string().required().email(),
-  cidadeId: yup.number().required()
+  nome: yup.string().required().min(3)
 })
 
-export default function DetalhesDePessoas({
+export default function DetalhesDeCidades({
   id,
 }: {
     id: string
@@ -43,24 +38,22 @@ export default function DetalhesDePessoas({
   useEffect(() => {
     if (id !== 'nova') {
       setLoading(true)
-      PessoasService.getById(Number(id))
+      CidadesService.getById(Number(id))
         .then((result) => {
           setLoading(false)
           if (result instanceof Error) {
             alert(result.message)
-            router.push('/dashboard/pessoas')
+            router.push('/dashboard/cidades')
           } else {
             console.log(result)
-            setNome(result.nomeCompleto)
+            setNome(result.nome)
 
             formRef.current?.setData(result)
           }
         })
     } else {
       formRef.current?.setData({
-        nomeCompleto: '',
-        email: '',
-        cidadeId: ''
+        nome: ''
       })
     }
   }, [id])
@@ -74,7 +67,7 @@ export default function DetalhesDePessoas({
         setLoading(true)
 
         if (id === 'nova') {
-          PessoasService
+          CidadesService
             .create(dadosValidados)
             .then((result) => {
               setLoading(false)
@@ -83,14 +76,14 @@ export default function DetalhesDePessoas({
                 alert(result.message)
               } else {
                 if (isSaveAndClose()) {
-                  router.push('/dashboard/pessoas')
+                  router.push('/dashboard/cidades')
                 } else {
-                  router.push(`/dashboard/pessoas/detalhe/${result}`)
+                  router.push(`/dashboard/cidades/detalhe/${result}`)
                 }
               }
             })
         } else {
-          PessoasService
+          CidadesService
             .updateById(Number(id), {id: Number(id), ...dadosValidados})
             .then((result) => {
               setLoading(false)
@@ -99,7 +92,7 @@ export default function DetalhesDePessoas({
                 alert(result.message)
               } else {
                 if (isSaveAndClose()) {
-                  router.push('/dashboard/pessoas')
+                  router.push('/dashboard/cidades')
                 }
               }
             })
@@ -113,8 +106,6 @@ export default function DetalhesDePessoas({
 
           validationErrors[error.path] = error.message
         })
-
-        console.log(validationErrors)
         
         formRef.current?.setErrors(validationErrors)
       })
@@ -122,13 +113,13 @@ export default function DetalhesDePessoas({
   
   const handleDelete = (id: number) => {
     if(confirm('Realmente deseja apagar?')) {
-      PessoasService.deleteById(id)
+      CidadesService.deleteById(id)
         .then(result => {
           if (result instanceof Error) {
             alert(result.message)
           } else {
             alert('Registro apagado com sucesso!')
-            router.push('/dashboard/pessoas')
+            router.push('/dashboard/cidades')
           }
         })
     }
@@ -136,7 +127,7 @@ export default function DetalhesDePessoas({
 
   return (
     <LayoutBaseDePagina 
-      titulo={id === 'nova' ? 'Nova pessoa' : nome}
+      titulo={id === 'nova' ? 'Nova cidade' : nome}
       barraDeFerramentas={
         <FerramentasDetalhes 
           textoBotaoNovo='Nova'
@@ -147,8 +138,8 @@ export default function DetalhesDePessoas({
 
           aoClicarEmSalvar={save}
           aoClicarEmApagar={() => handleDelete(Number(id))}
-          aoClicarEmNovo={() => router.push('/dashboard/pessoas/detalhe/nova')}
-          aoClicarEmVoltar={() => router.push('/dashboard/pessoas')}
+          aoClicarEmNovo={() => router.push('/dashboard/cidades/detalhe/nova')}
+          aoClicarEmVoltar={() => router.push('/dashboard/cidades')}
           aoClicarEmSalvarEVoltar={saveAndClose}
         />
       }
@@ -181,28 +172,11 @@ export default function DetalhesDePessoas({
               <Grid item xs={12}>
                 <VTextField
                   fullWidth 
-                  name='nomeCompleto' 
-                  label='Nome Completo' 
+                  name='nome' 
+                  label='Nome' 
                   disabled={loading}
                   onChange={e => setNome(e.target.value)}
                 />
-              </Grid>
-            </Grid>
-
-            <Grid container item direction='row' spacing={2}>
-              <Grid item xs={12}>
-                <VTextField
-                  fullWidth 
-                  name='email' 
-                  label='E-mail' 
-                  disabled={loading}
-                />
-              </Grid>
-            </Grid>
-
-            <Grid container item direction='row' spacing={2}>
-              <Grid item xs={12}>
-                <AutoCompleteCidades isExternalLoading={loading} />
               </Grid>
             </Grid>
           </Grid>

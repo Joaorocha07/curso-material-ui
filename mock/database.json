@@ -1,82 +1,52 @@
 {
   "pessoas": [
     {
-      "id": 4,
-      "nomeCompleto": "Kesya Grabiella Oliveira grande amor",
-      "email": "kesya@ga",
-      "cidadeId": 4
-    },
-    {
-      "id": 7,
-      "nomeCompleto": "Maria Silva",
-      "email": "maria@gmail.com",
-      "cidadeId": 7
-    },
-    {
-      "id": 8,
-      "email": "carlos@gmail.com",
-      "cidadeId": 8,
-      "nomeCompleto": "Carlos Alberto Santos"
-    },
-    {
-      "id": 9,
-      "email": "luis@gmail.com",
-      "cidadeId": 9,
-      "nomeCompleto": "Luís Felipe Rodrigues"
-    },
-    {
-      "id": 10,
-      "email": "anaclara@gmail.com",
-      "cidadeId": 10,
-      "nomeCompleto": "Ana Clara Pereira"
-    },
-    {
-      "id": 12,
-      "email": "laura@gmail.com",
-      "cidadeId": 12,
-      "nomeCompleto": "Laura Fernandes"
-    },
-    {
-      "id": 13,
-      "email": "ricardo@gmail.com",
-      "cidadeId": 13,
-      "nomeCompleto": "Ricardo Oliveira"
-    },
-    {
-      "id": 15,
-      "email": "roberto@gmail.com",
-      "cidadeId": 15,
-      "nomeCompleto": "Roberto Silva"
-    },
-    {
-      "nomeCompleto": "Jadson da silva pereira",
-      "email": "jadson@gmail.com",
-      "cidadeId": "1",
-      "id": 16
-    },
-    {
-      "id": 17,
-      "nomeCompleto": "Segismundo Corneiro",
-      "email": "segiecorno@gmail",
-      "cidadeId": "dasdsadsadasdsaddasdasd"
-    },
-    {
-      "nomeCompleto": "eryka",
-      "email": "eryka@gmail.com",
-      "cidadeId": "uberlandia",
-      "id": 18
-    },
-    {
+      "id": 1,
       "nomeCompleto": "João Victor Rocha Santos",
       "email": "rocha.joao.victor.50@gmail.com",
-      "cidadeId": "1",
-      "id": 19
+      "cidadeId": 3
+    }
+  ],
+  "cidades": [
+    {
+      "nome": "Uberlândia",
+      "id": 1
     },
     {
-      "cidadeId": 78,
-      "email": "semplavras.cm@gmail.com",
-      "nomeCompleto": "Jorzinho da 12",
-      "id": 20
+      "nome": "Porto Alegre",
+      "id": 2
+    },
+    {
+      "nome": "Montes Claros",
+      "id": 3
+    },
+    {
+      "nome": "Pernambuco",
+      "id": 4
+    },
+    {
+      "nome": "Nova York",
+      "id": 5
+    },
+    {
+      "nome": "Rio de Janeiro",
+      "id": 6
+    },
+    {
+      "nome": "Mato Grosso",
+      "id": 7
+    },
+    {
+      "nome": "São Paulo",
+      "id": 8
+    },
+    {
+      "nome": "Fortaleza",
+      "id": 9
+    },
+    {
+      "nome": "Gramado",
+      "id": 10
     }
   ]
 }

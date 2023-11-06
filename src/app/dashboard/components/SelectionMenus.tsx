@@ -9,8 +9,9 @@ import {
 
 // icons
 import HomeIcon from '@mui/icons-material/Home'
-import EmojiPeopleIcon 
-  from '@mui/icons-material/EmojiPeople'
+import PeopleIcon from '@mui/icons-material/People'
+import LocationCityIcon 
+  from '@mui/icons-material/LocationCity'
 import NightlightRoundIcon 
   from '@mui/icons-material/NightlightRound'
 
@@ -37,13 +38,22 @@ export default function SelectionMenus() {
           <HomeIcon />
         </MenuItens>
         <MenuItens 
+          text='Cidades' 
+          link='/dashboard/cidades' 
+          onClick={
+            isMobile ? toggleDrawerOpen : undefined
+          }
+        >
+          <LocationCityIcon />
+        </MenuItens>
+        <MenuItens 
           text='Pessoas' 
           link='/dashboard/pessoas' 
           onClick={
             isMobile ? toggleDrawerOpen : undefined
           }
         >
-          <EmojiPeopleIcon />
+          <PeopleIcon />
         </MenuItens>
       </Box>
       <Box>

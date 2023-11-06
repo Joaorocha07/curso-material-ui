@@ -9,8 +9,7 @@ export default function HeadTableComponents() {
     <TableHead>
       <TableRow>
         <TableCell width={100}>Ações</TableCell>
-        <TableCell>Nome completo</TableCell>
-        <TableCell>Email</TableCell>
+        <TableCell>Nome</TableCell>
       </TableRow>
     </TableHead>
   )
