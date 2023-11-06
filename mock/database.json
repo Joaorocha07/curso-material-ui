@@ -5,6 +5,12 @@
       "nomeCompleto": "João Victor Rocha Santos",
       "email": "rocha.joao.victor.50@gmail.com",
       "cidadeId": 3
+    },
+    {
+      "id": 2,
+      "nomeCompleto": "teste",
+      "email": "mant@gmail.com",
+      "cidadeId": 1
     }
   ],
   "cidades": [
