@@ -95,7 +95,7 @@ export default function FerramentasListagem({
 
       {(mostrarBotaoSalvarEVoltar && 
         !mostrarBotaoSalvarEVoltarCarregando &&
-          !isMobile && mdDonw) && (
+          !isMobile) && (
         <Button 
           variant='outlined' 
           color='primary' 
@@ -114,7 +114,7 @@ export default function FerramentasListagem({
       )}
 
       {(mostrarBotaoSalvarEVoltarCarregando &&
-       !isMobile && mdDonw) &&(
+       !isMobile) &&(
         <Skeleton width={186} height={62} />
       )}
 

@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { FormHandles } from '@unform/core'
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material'
 import { Form } from '@unform/web'
 
@@ -12,6 +11,7 @@ import FerramentasDetalhes
 import LayoutBaseDePagina 
   from '@/shared/layouts/LayoutBaseDePagina'
 import VTextField from '@/shared/forms/VTextField'
+import { useVForm } from '@/shared/forms/useVForm'
 
 interface IFormData {
   email: string
@@ -26,7 +26,7 @@ export default function DetalhesDePessoas({
  }) {
   const router = useRouter()
 
-  const formRef = useRef<FormHandles>(null)
+  const { formRef, save, saveAndClose , isSaveAndClose } = useVForm()
 
   const [loading, setLoading] = useState(false)
   const [nome, setNome] = useState('')
@@ -47,6 +47,12 @@ export default function DetalhesDePessoas({
             formRef.current?.setData(result)
           }
         })
+    } else {
+      formRef.current?.setData({
+        nomeCompleto: '',
+        email: '',
+        cidadeId: ''
+      })
     }
   }, [id])
 
@@ -62,7 +68,11 @@ export default function DetalhesDePessoas({
           if (result instanceof Error) {
             alert(result.message)
           } else {
-            router.push(`/dashboard/pessoas/detalhe/${result}`)
+            if (isSaveAndClose()) {
+              router.push('/dashboard/pessoas')
+            } else {
+              router.push(`/dashboard/pessoas/detalhe/${result}`)
+            }
           }
         })
     } else {
@@ -73,6 +83,10 @@ export default function DetalhesDePessoas({
           
           if (result instanceof Error) {
             alert(result.message)
+          } else {
+            if (isSaveAndClose()) {
+              router.push('/dashboard/pessoas')
+            }
           }
         })
     }
@@ -94,7 +108,7 @@ export default function DetalhesDePessoas({
 
   return (
     <LayoutBaseDePagina 
-      titulo={id === ' nova' ? 'Nova pessoa' : nome}
+      titulo={id === 'nova' ? 'Nova pessoa' : nome}
       barraDeFerramentas={
         <FerramentasDetalhes 
           textoBotaoNovo='Nova'
@@ -103,11 +117,11 @@ export default function DetalhesDePessoas({
           mostrarBotaoNovo={id !== 'nova'}
           mostrarBotaoApagar={id !== 'nova'}
 
-          aoClicarEmSalvar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvar={save}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmNovo={() => router.push('/dashboard/pessoas/detalhe/nova')}
           aoClicarEmVoltar={() => router.push('/dashboard/pessoas')}
-          aoClicarEmSalvarEVoltar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvarEVoltar={saveAndClose}
         />
       }
     >
