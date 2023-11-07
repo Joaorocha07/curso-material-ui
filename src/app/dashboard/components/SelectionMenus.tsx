@@ -14,6 +14,9 @@ import LocationCityIcon
   from '@mui/icons-material/LocationCity'
 import NightlightRoundIcon 
   from '@mui/icons-material/NightlightRound'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useAuthContext } 
+  from '@/shared/contexts/Auth/AuthContext'
 
 export default function SelectionMenus() {
   const theme = useTheme()
@@ -24,6 +27,7 @@ export default function SelectionMenus() {
     theme.breakpoints.down('sm'))
 
   const { toggleTheme } = useAppThemeContext()
+  const { logout } = useAuthContext()
 
   return (
     <>
@@ -63,6 +67,15 @@ export default function SelectionMenus() {
           onClick={toggleTheme}
         >
           <NightlightRoundIcon />
+        </MenuItens>
+      </Box>
+      <Box>
+        <MenuItens 
+          text='Sair' 
+          link='' 
+          onClick={logout}
+        >
+          <LogoutIcon />
         </MenuItens>
       </Box>
     </>

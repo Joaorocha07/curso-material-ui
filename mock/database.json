@@ -17,6 +17,12 @@
       "email": "luiz@gmail.com",
       "cidadeId": 11,
       "id": 3
+    },
+    {
+      "nomeCompleto": "teste",
+      "email": "teste@gmail.com",
+      "cidadeId": 3,
+      "id": 4
     }
   ],
   "cidades": [
@@ -64,5 +70,8 @@
       "nome": "Uberaba",
       "id": 11
     }
-  ]
+  ],
+  "auth": {
+    "accessToken": "teste"
+  }
 }

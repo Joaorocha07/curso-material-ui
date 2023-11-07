@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import '../styles/globals.css'
 import { AppThemeProvider 
 } from '@/shared/contexts/Theme/ThemeContext'
+import { AuthProvider } 
+  from '@/shared/contexts/Auth/AuthContext'
 
 export const metadata: Metadata = {
   title: 'Cadastros',
@@ -17,9 +19,11 @@ export default function RootLayout({
 
   return (
     <html lang="pt-br">
-      <AppThemeProvider>
-        {children}
-      </AppThemeProvider>
+      <AuthProvider>
+        <AppThemeProvider>
+          {children}
+        </AppThemeProvider>
+      </AuthProvider>
     </html>
   )
 }
