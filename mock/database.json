@@ -11,6 +11,12 @@
       "nomeCompleto": "teste",
       "email": "mant@gmail.com",
       "cidadeId": 1
+    },
+    {
+      "nomeCompleto": "Luiz Felipe",
+      "email": "luiz@gmail.com",
+      "cidadeId": 11,
+      "id": 3
     }
   ],
   "cidades": [
@@ -53,6 +59,10 @@
     {
       "nome": "Gramado",
       "id": 10
+    },
+    {
+      "nome": "Uberaba",
+      "id": 11
     }
   ]
 }
