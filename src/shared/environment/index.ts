@@ -19,6 +19,6 @@ export const Enviroment = {
   /** 
    * Url base de consultas dos dados dessa aplicação
   */
-  URL_BASE: 'http://localhost:3333'
+  URL_BASE: 'https://joaorocha07.netlify.app'
 
 }
