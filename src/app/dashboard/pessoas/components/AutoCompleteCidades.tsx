@@ -1,3 +1,5 @@
+import SweetAlert 
+  from '@/shared/components/sweet-alert/Sweetalert'
 import useDebounce from '@/shared/hooks/UseDebounce'
 import { CidadesService } 
   from '@/shared/services/api/cidades/CidadesService'
@@ -55,7 +57,11 @@ export default function AutoCompleteCidades({
           setLoading(false)
     
           if(result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
             return
           } else {
             console.log(result)

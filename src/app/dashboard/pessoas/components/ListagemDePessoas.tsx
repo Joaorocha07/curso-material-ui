@@ -26,6 +26,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useRouter } from 'next/navigation'
 import HeadTableComponents from './HeadTableComponents'
+import SweetAlert from '@/shared/components/sweet-alert/Sweetalert'
 
 export default function ListagemDePessoas() {
   const [busca, setBusca] = useState<string>('')
@@ -68,7 +69,11 @@ export default function ListagemDePessoas() {
           setLoading(false)
 
           if(result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
             return
           } else {
             console.log(result)
@@ -84,12 +89,20 @@ export default function ListagemDePessoas() {
       PessoasService.deleteById(id)
         .then(result => {
           if (result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
           } else {
             setRows(oldRows => [
               ...oldRows.filter(oldRow => oldRow.id !== id)
             ])
-            alert('Registro apagado com sucesso!')
+            SweetAlert({
+              title: 'Sucesso',
+              text: 'Registro apagado com sucesso!',
+              icon: 'success',
+            })
           }
         })
     }

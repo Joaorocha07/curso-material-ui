@@ -26,6 +26,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { useRouter } from 'next/navigation'
 import HeadTableComponents from './HeadTableComponents'
 import { CidadesService } from '@/shared/services/api/cidades/CidadesService'
+import SweetAlert from '@/shared/components/sweet-alert/Sweetalert'
 
 export default function ListagemDeCidades() {
   const [busca, setBusca] = useState<string>('')
@@ -68,7 +69,11 @@ export default function ListagemDeCidades() {
           setLoading(false)
 
           if(result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
             return
           } else {
             console.log(result)
@@ -80,21 +85,38 @@ export default function ListagemDeCidades() {
   }, [busca, pagina])
 
   const handleDelete = (id: number) => {
-    if(confirm('Realmente deseja apagar?')) {
-      CidadesService.deleteById(id)
-        .then(result => {
-          if (result instanceof Error) {
-            alert(result.message)
-          } else {
-            setRows(oldRows => [
-              ...oldRows.filter(oldRow => oldRow.id !== id)
-            ])
-            alert('Registro apagado com sucesso!')
-          }
-        })
-    }
+    SweetAlert({
+      title: 'Realmente deseja apagar?',
+      text: 'Esta ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar',
+      secondAlertOptions: {
+        title: 'Sucesso',
+        text: 'Registro apagado com sucesso!',
+        icon: 'success',
+      },
+    }).then((result) => {
+      if (result && result.isConfirmed) { 
+        CidadesService.deleteById(id)
+          .then((result) => {
+            if (result instanceof Error) {
+              SweetAlert({
+                title: 'Erro',
+                text: result.message,
+                icon: 'error',
+              })
+            } else {
+              setRows((oldRows) => [...oldRows.filter((oldRow) => oldRow.id !== id)])
+            }
+          })
+      }
+    })
   }
-
+  
   return (
     <LayoutBaseDePagina 
       titulo="Listagem de cidades" 

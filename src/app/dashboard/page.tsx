@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 'use client'
 import FerramentasListagem from '@/shared/components/ferramentas-listagem/FerramentasListagem'
+import SweetAlert from '@/shared/components/sweet-alert/Sweetalert'
 import LayoutBaseDePagina 
   from '@/shared/layouts/LayoutBaseDePagina'
 import { CidadesService } from '@/shared/services/api/cidades/CidadesService'
@@ -23,7 +24,11 @@ export default function Dashboard() {
         setLoadingCidades(false)
   
         if(result instanceof Error) {
-          alert(result.message)
+          SweetAlert({
+            title: 'Erro',
+            text: result.message,
+            icon: 'error',
+          })
           return
         } else {
           console.log(result)
@@ -35,7 +40,11 @@ export default function Dashboard() {
         setLoadingPessoas(false)
   
         if(result instanceof Error) {
-          alert(result.message)
+          SweetAlert({
+            title: 'Erro',
+            text: result.message,
+            icon: 'error',
+          })
           return
         } else {
           console.log(result)

@@ -15,6 +15,7 @@ import VTextField from '@/shared/forms/VTextField'
 import { useVForm } from '@/shared/forms/useVForm'
 import { IVFormErrors } from '@/shared/forms/IvFormErrors'
 import AutoCompleteCidades from '../../components/AutoCompleteCidades'
+import SweetAlert from '@/shared/components/sweet-alert/Sweetalert'
 
 interface IFormData {
   email: string
@@ -47,7 +48,11 @@ export default function DetalhesDePessoas({
         .then((result) => {
           setLoading(false)
           if (result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
             router.push('/dashboard/pessoas')
           } else {
             console.log(result)
@@ -80,7 +85,11 @@ export default function DetalhesDePessoas({
               setLoading(false)
               
               if (result instanceof Error) {
-                alert(result.message)
+                SweetAlert({
+                  title: 'Erro',
+                  text: result.message,
+                  icon: 'error',
+                })
               } else {
                 if (isSaveAndClose()) {
                   router.push('/dashboard/pessoas')
@@ -96,7 +105,11 @@ export default function DetalhesDePessoas({
               setLoading(false)
               
               if (result instanceof Error) {
-                alert(result.message)
+                SweetAlert({
+                  title: 'Erro',
+                  text: result.message,
+                  icon: 'error',
+                })
               } else {
                 if (isSaveAndClose()) {
                   router.push('/dashboard/pessoas')
@@ -125,9 +138,17 @@ export default function DetalhesDePessoas({
       PessoasService.deleteById(id)
         .then(result => {
           if (result instanceof Error) {
-            alert(result.message)
+            SweetAlert({
+              title: 'Erro',
+              text: result.message,
+              icon: 'error',
+            })
           } else {
-            alert('Registro apagado com sucesso!')
+            SweetAlert({
+              title: 'Sucesso',
+              text: 'Registro apagado com sucesso!',
+              icon: 'success',
+            })
             router.push('/dashboard/pessoas')
           }
         })
