@@ -6,14 +6,16 @@ import Swal, {
 } from 'sweetalert2'
 
 interface ISweetAlertProps {
-  title: string;
-  text: string;
+  title?: string;
+  text?: string;
   icon?: SweetAlertIcon;
   showCancelButton?: boolean;
   confirmButtonColor?: string;
   cancelButtonColor?: string;
   confirmButtonText?: string;
   cancelButtonText?: string;
+  showConfirmButton?: boolean
+  timer?: number,
   secondAlertOptions?: {
     title: string;
     text: string;

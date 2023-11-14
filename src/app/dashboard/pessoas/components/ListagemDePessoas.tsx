@@ -27,6 +27,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import { useRouter } from 'next/navigation'
 import HeadTableComponents from './HeadTableComponents'
 import SweetAlert from '@/shared/components/sweet-alert/Sweetalert'
+import { CidadesService } from '@/shared/services/api/cidades/CidadesService'
+import { IDetalheCidade } from '@/types/cidades'
 
 export default function ListagemDePessoas() {
   const [busca, setBusca] = useState<string>('')
@@ -38,6 +40,7 @@ export default function ListagemDePessoas() {
   const [rows, setRows] = useState<IListagemPessoa[]>([])
   const [totalCount, setTotalCount] = useState(0)
   const [loading, setLoading] = useState(true)
+  const [cidade, setCidade] = useState<IDetalheCidade[]>()
 
   const limpaBuscar = () => {
     const params = new URLSearchParams(window.location.search)
@@ -61,6 +64,32 @@ export default function ListagemDePessoas() {
 
   useEffect(() => {
     setLoading(true)
+    CidadesService.getAll(1)
+      .then((result) => {
+        console.log(result)
+  
+        if(result instanceof Error) {
+          SweetAlert({
+            title: 'Erro',
+            text: result.message,
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
+          return
+        } else {
+          console.log(result)
+          const cidades = result.data.map((cidade) => ({
+            id: cidade.id,
+            nome: cidade.nome
+          }))
+          setCidade(cidades)
+          console.log(cidades)
+        }
+      })
+  }, [])
+
+  useEffect(() => {
+    setLoading(true)
 
     debounce(() => {
       void limpaBuscar()
@@ -73,6 +102,7 @@ export default function ListagemDePessoas() {
               title: 'Erro',
               text: result.message,
               icon: 'error',
+              confirmButtonText: 'Ok'
             })
             return
           } else {
@@ -85,27 +115,39 @@ export default function ListagemDePessoas() {
   }, [busca, pagina])
 
   const handleDelete = (id: number) => {
-    if(confirm('Realmente deseja apagar?')) {
-      PessoasService.deleteById(id)
-        .then(result => {
-          if (result instanceof Error) {
-            SweetAlert({
-              title: 'Erro',
-              text: result.message,
-              icon: 'error',
-            })
-          } else {
-            setRows(oldRows => [
-              ...oldRows.filter(oldRow => oldRow.id !== id)
-            ])
-            SweetAlert({
-              title: 'Sucesso',
-              text: 'Registro apagado com sucesso!',
-              icon: 'success',
-            })
-          }
-        })
-    }
+    SweetAlert({
+      title: 'Realmente deseja apagar?',
+      text: 'Esta ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar',
+      secondAlertOptions: {
+        title: 'Sucesso',
+        text: 'Registro apagado com sucesso!',
+        icon: 'success',
+      },
+    }).then((result) => {
+      if (result && result.isConfirmed) {
+        PessoasService.deleteById(id)
+          .then(result => {
+            if (result instanceof Error) {
+              SweetAlert({
+                title: 'Erro',
+                text: result.message,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
+            } else {
+              setRows(oldRows => [
+                ...oldRows.filter(oldRow => oldRow.id !== id)
+              ])
+            }
+          })  
+      }
+    })
   }
 
   return (
@@ -142,6 +184,10 @@ export default function ListagemDePessoas() {
                 </TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
+                <TableCell>
+                  {cidade && cidade.find((c) => c.id === row.cidadeId)?.nome || 'Cidade não encontrada'}
+                </TableCell>
+
               </TableRow>
             ))}
           </TableBody>

@@ -17,6 +17,8 @@ import NightlightRoundIcon
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useAuthContext } 
   from '@/shared/contexts/Auth/AuthContext'
+import SweetAlert 
+  from '@/shared/components/sweet-alert/Sweetalert'
 
 export default function SelectionMenus() {
   const theme = useTheme()
@@ -28,6 +30,27 @@ export default function SelectionMenus() {
 
   const { toggleTheme } = useAppThemeContext()
   const { logout } = useAuthContext()
+
+  function handleLogout() {
+    SweetAlert({
+      title: 'Realmente deseja sair?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sair',
+      cancelButtonText: 'Cancelar',
+      secondAlertOptions: {
+        title: 'Sucesso',
+        text: 'Deslogado com sucesso!',
+        icon: 'success',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout()
+      }
+    })
+  }
 
   return (
     <>
@@ -73,7 +96,7 @@ export default function SelectionMenus() {
         <MenuItens 
           text='Sair' 
           link='' 
-          onClick={logout}
+          onClick={handleLogout}
         >
           <LogoutIcon />
         </MenuItens>

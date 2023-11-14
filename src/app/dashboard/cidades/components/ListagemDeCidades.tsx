@@ -73,6 +73,7 @@ export default function ListagemDeCidades() {
               title: 'Erro',
               text: result.message,
               icon: 'error',
+              confirmButtonText: 'Ok'
             })
             return
           } else {
@@ -108,6 +109,7 @@ export default function ListagemDeCidades() {
                 title: 'Erro',
                 text: result.message,
                 icon: 'error',
+                confirmButtonText: 'Ok'
               })
             } else {
               setRows((oldRows) => [...oldRows.filter((oldRow) => oldRow.id !== id)])

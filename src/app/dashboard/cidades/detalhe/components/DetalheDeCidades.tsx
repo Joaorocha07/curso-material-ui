@@ -41,12 +41,14 @@ export default function DetalhesDeCidades({
       setLoading(true)
       CidadesService.getById(Number(id))
         .then((result) => {
+          console.log(CidadesService)
           setLoading(false)
           if (result instanceof Error) {
             SweetAlert({
               title: 'Erro',
               text: result.message,
               icon: 'error',
+              confirmButtonText: 'Ok'
             })
             router.push('/dashboard/cidades')
           } else {
@@ -82,11 +84,24 @@ export default function DetalhesDeCidades({
                   title: 'Erro',
                   text: result.message,
                   icon: 'error',
+                  confirmButtonText: 'Ok'
                 })
               } else {
                 if (isSaveAndClose()) {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push('/dashboard/cidades')
                 } else {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push(`/dashboard/cidades/detalhe/${result}`)
                 }
               }
@@ -102,10 +117,24 @@ export default function DetalhesDeCidades({
                   title: 'Erro',
                   text: result.message,
                   icon: 'error',
+                  confirmButtonText: 'Ok'
                 })
               } else {
                 if (isSaveAndClose()) {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push('/dashboard/cidades')
+                } else {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro editado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                 }
               }
             })
@@ -125,26 +154,38 @@ export default function DetalhesDeCidades({
   }
   
   const handleDelete = (id: number) => {
-    if(confirm('Realmente deseja apagar?')) {
-      CidadesService.deleteById(id)
-        .then(result => {
-          if (result instanceof Error) {
-            SweetAlert({
-              title: 'Erro',
-              text: result.message,
-              icon: 'error',
-            })
-          } else {
-            SweetAlert({
-              title: 'Sucesso',
-              text: 'Registro apagado com sucesso!',
-              icon: 'success',
-            })
-            router.push('/dashboard/cidades')
-          }
-        })
-    }
-  }
+    SweetAlert({
+      title: 'Realmente deseja apagar?',
+      text: 'Esta ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar',
+      secondAlertOptions: {
+        title: 'Sucesso',
+        text: 'Registro apagado com sucesso!',
+        icon: 'success',
+      },
+    }).then((result) => {
+      if (result && result.isConfirmed) {
+        CidadesService.deleteById(id)
+          .then((result) => {
+            if (result instanceof Error) {
+              SweetAlert({
+                title: 'Erro',
+                text: result.message,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
+            } else {
+              router.push('/dashboard/cidades')
+            }
+          })
+      }
+    })
+  }  
 
   return (
     <LayoutBaseDePagina 

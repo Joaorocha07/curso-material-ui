@@ -11,6 +11,7 @@ import {
   TextField, 
   Typography
 } from '@mui/material'
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import * as yup from 'yup'
@@ -102,6 +103,7 @@ export default function Login() {
                 onChange={e => setSenha(e.target.value)}
                 onKeyDown={() => setSenhaError('')}
               />
+              <Link color='#fff' href='/'>Cadastre se</Link>
             </Box>
           </CardContent>
           <CardActions>

@@ -11,6 +11,7 @@ export default function HeadTableComponents() {
         <TableCell width={100}>Ações</TableCell>
         <TableCell>Nome completo</TableCell>
         <TableCell>Email</TableCell>
+        <TableCell>Cidade</TableCell>
       </TableRow>
     </TableHead>
   )

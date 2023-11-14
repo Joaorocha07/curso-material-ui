@@ -52,6 +52,7 @@ export default function DetalhesDePessoas({
               title: 'Erro',
               text: result.message,
               icon: 'error',
+              confirmButtonText: 'Ok'
             })
             router.push('/dashboard/pessoas')
           } else {
@@ -89,11 +90,24 @@ export default function DetalhesDePessoas({
                   title: 'Erro',
                   text: result.message,
                   icon: 'error',
+                  confirmButtonText: 'Ok'
                 })
               } else {
                 if (isSaveAndClose()) {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push('/dashboard/pessoas')
                 } else {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push(`/dashboard/pessoas/detalhe/${result}`)
                 }
               }
@@ -109,10 +123,24 @@ export default function DetalhesDePessoas({
                   title: 'Erro',
                   text: result.message,
                   icon: 'error',
+                  confirmButtonText: 'Ok'
                 })
               } else {
                 if (isSaveAndClose()) {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro salvo com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                   router.push('/dashboard/pessoas')
+                } else {
+                  SweetAlert({
+                    title: 'Sucesso',
+                    text: 'Registro editado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
                 }
               }
             })
@@ -134,25 +162,37 @@ export default function DetalhesDePessoas({
   }
   
   const handleDelete = (id: number) => {
-    if(confirm('Realmente deseja apagar?')) {
-      PessoasService.deleteById(id)
-        .then(result => {
-          if (result instanceof Error) {
-            SweetAlert({
-              title: 'Erro',
-              text: result.message,
-              icon: 'error',
-            })
-          } else {
-            SweetAlert({
-              title: 'Sucesso',
-              text: 'Registro apagado com sucesso!',
-              icon: 'success',
-            })
-            router.push('/dashboard/pessoas')
-          }
-        })
-    }
+    SweetAlert({
+      title: 'Realmente deseja apagar?',
+      text: 'Esta ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar',
+      secondAlertOptions: {
+        title: 'Sucesso',
+        text: 'Registro apagado com sucesso!',
+        icon: 'success',
+      },
+    }).then((result) => {
+      if (result && result.isConfirmed) {
+        PessoasService.deleteById(id)
+          .then(result => {
+            if (result instanceof Error) {
+              SweetAlert({
+                title: 'Erro',
+                text: result.message,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
+            } else {
+              router.push('/dashboard/pessoas')
+            }
+          })
+      }
+    })
   }
 
   return (

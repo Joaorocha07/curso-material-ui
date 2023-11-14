@@ -28,6 +28,7 @@ export default function Dashboard() {
             title: 'Erro',
             text: result.message,
             icon: 'error',
+            confirmButtonText: 'Ok'
           })
           return
         } else {
@@ -44,6 +45,7 @@ export default function Dashboard() {
             title: 'Erro',
             text: result.message,
             icon: 'error',
+            confirmButtonText: 'Ok'
           })
           return
         } else {

@@ -61,6 +61,7 @@ export default function AutoCompleteCidades({
               title: 'Erro',
               text: result.message,
               icon: 'error',
+              confirmButtonText: 'Ok'
             })
             return
           } else {
